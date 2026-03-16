@@ -1,0 +1,300 @@
+/**
+ * variables.css
+ * -------------
+ * Design Token System — nguồn sự thật duy nhất về giao diện.
+ * Mọi giá trị màu sắc, font, khoảng cách, shadow, animation
+ * đều được định nghĩa tại đây.
+ *
+ * Nguyên tắc sử dụng:
+ *   - KHÔNG được dùng giá trị cứng (magic number) ở bất kỳ file CSS nào khác.
+ *   - Muốn thay đổi giao diện toàn trang → chỉ sửa file này.
+ *
+ * Cấu trúc:
+ *   1. Color Palette     — bảng màu gốc (không dùng trực tiếp trong component)
+ *   2. Semantic Colors   — màu theo ngữ nghĩa (dùng trong component)
+ *   3. Typography        — font, size, weight, line-height
+ *   4. Spacing           — hệ thống khoảng cách theo bội số 4px
+ *   5. Border & Radius   — viền và bo góc
+ *   6. Shadow            — đổ bóng
+ *   7. Transition        — tốc độ và easing animation
+ *   8. Layout            — breakpoint, kích thước vùng chứa
+ *   9. Z-index           — lớp chồng nhau
+ *  10. Component Tokens  — token riêng cho từng component lớn
+ */
+
+:root {
+
+  /* ─────────────────────────────────────────
+   * 1. COLOR PALETTE
+   *    Màu gốc — chỉ dùng để gán cho Semantic Colors bên dưới.
+   *    Component CSS không được dùng trực tiếp các biến này.
+   * ───────────────────────────────────────── */
+
+  /* Neutrals */
+  --color-black:        #0a0a0f;
+  --color-gray-950:     #0f0f18;
+  --color-gray-900:     #16161f;
+  --color-gray-800:     #1e1e2a;
+  --color-gray-700:     #2a2a3a;
+  --color-gray-600:     #3a3a50;
+  --color-gray-500:     #5a5a78;
+  --color-gray-400:     #8888aa;
+  --color-gray-300:     #aaaac0;
+  --color-gray-200:     #ccccdd;
+  --color-gray-100:     #eeeef5;
+  --color-white:        #ffffff;
+
+  /* Brand — tông màu chủ đạo: tím đêm + vàng hổ phách */
+  --color-brand-50:     #fff8e7;
+  --color-brand-100:    #ffedb8;
+  --color-brand-200:    #ffd97a;
+  --color-brand-300:    #ffc23d;
+  --color-brand-400:    #ffaa00;   /* accent chính */
+  --color-brand-500:    #e09400;
+  --color-brand-600:    #b87200;
+
+  /* Accent phụ — cyan lạnh */
+  --color-accent-400:   #00d4ff;
+  --color-accent-500:   #00aad4;
+  --color-accent-600:   #007fa0;
+
+  /* Trạng thái */
+  --color-success:      #22c55e;
+  --color-warning:      #f59e0b;
+  --color-error:        #ef4444;
+  --color-info:         #3b82f6;
+
+
+  /* ─────────────────────────────────────────
+   * 2. SEMANTIC COLORS
+   *    Màu theo ngữ nghĩa — đây là biến được dùng trong component CSS.
+   *    Đổi theme chỉ cần đổi giá trị ở đây, không chạm component.
+   * ───────────────────────────────────────── */
+
+  /* Nền trang */
+  --bg-page:            var(--color-black);
+  --bg-surface:         var(--color-gray-900);   /* card, panel */
+  --bg-surface-raised:  var(--color-gray-800);   /* dropdown, tooltip */
+  --bg-surface-overlay: var(--color-gray-700);   /* hover state */
+
+  /* Header */
+  --bg-header:          var(--color-gray-950);
+  --border-header:      var(--color-gray-700);
+
+  /* Văn bản */
+  --text-primary:       var(--color-gray-100);
+  --text-secondary:     var(--color-gray-300);
+  --text-muted:         var(--color-gray-500);
+  --text-inverse:       var(--color-black);
+  --text-accent:        var(--color-brand-400);
+
+  /* Màu nhấn (accent) */
+  --accent-primary:     var(--color-brand-400);   /* vàng — nút, highlight */
+  --accent-primary-dim: var(--color-brand-600);   /* hover/active */
+  --accent-secondary:   var(--color-accent-400);  /* cyan — badge, tag */
+
+  /* Viền */
+  --border-subtle:      var(--color-gray-800);
+  --border-default:     var(--color-gray-700);
+  --border-strong:      var(--color-gray-600);
+  --border-accent:      var(--color-brand-400);
+
+  /* Icon */
+  --icon-default:       var(--color-gray-300);
+  --icon-muted:         var(--color-gray-500);
+  --icon-accent:        var(--color-brand-400);
+
+
+  /* ─────────────────────────────────────────
+   * 3. TYPOGRAPHY
+   * ───────────────────────────────────────── */
+
+  /* Font families */
+  --font-display:  'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-body:     'DM Sans', 'Nunito', system-ui, sans-serif;
+  --font-mono:     'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font sizes — thang tỉ lệ 1.25 (Major Third) */
+  --text-xs:    0.64rem;    /*  ~10px */
+  --text-sm:    0.8rem;     /*  ~13px */
+  --text-base:  1rem;       /*   16px */
+  --text-md:    1.25rem;    /*   20px */
+  --text-lg:    1.563rem;   /*   25px */
+  --text-xl:    1.953rem;   /*   31px */
+  --text-2xl:   2.441rem;   /*   39px */
+  --text-3xl:   3.052rem;   /*   49px */
+
+  /* Font weights */
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-black:     900;
+
+  /* Line heights */
+  --leading-tight:    1.2;
+  --leading-snug:     1.4;
+  --leading-normal:   1.6;
+  --leading-relaxed:  1.8;
+
+  /* Letter spacing */
+  --tracking-tight:   -0.02em;
+  --tracking-normal:   0em;
+  --tracking-wide:     0.05em;
+  --tracking-wider:    0.1em;
+  --tracking-widest:   0.2em;
+
+
+  /* ─────────────────────────────────────────
+   * 4. SPACING
+   *    Hệ thống dựa trên bội số 4px.
+   *    Dùng: --space-[N] → N × 4px
+   * ───────────────────────────────────────── */
+
+  --space-1:    0.25rem;   /*  4px */
+  --space-2:    0.5rem;    /*  8px */
+  --space-3:    0.75rem;   /* 12px */
+  --space-4:    1rem;      /* 16px */
+  --space-5:    1.25rem;   /* 20px */
+  --space-6:    1.5rem;    /* 24px */
+  --space-8:    2rem;      /* 32px */
+  --space-10:   2.5rem;    /* 40px */
+  --space-12:   3rem;      /* 48px */
+  --space-16:   4rem;      /* 64px */
+  --space-20:   5rem;      /* 80px */
+  --space-24:   6rem;      /* 96px */
+
+
+  /* ─────────────────────────────────────────
+   * 5. BORDER & RADIUS
+   * ───────────────────────────────────────── */
+
+  --border-width-thin:    1px;
+  --border-width-default: 1px;
+  --border-width-thick:   2px;
+
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-xl:    16px;
+  --radius-2xl:   24px;
+  --radius-full:  9999px;   /* pill shape */
+
+
+  /* ─────────────────────────────────────────
+   * 6. SHADOW
+   * ───────────────────────────────────────── */
+
+  --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md:   0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg:   0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.7);
+
+  /* Glow — dùng cho nút accent và video đang phát */
+  --shadow-glow-brand:  0 0 20px rgba(255, 170, 0, 0.35);
+  --shadow-glow-accent: 0 0 20px rgba(0, 212, 255, 0.3);
+
+
+  /* ─────────────────────────────────────────
+   * 7. TRANSITION & ANIMATION
+   * ───────────────────────────────────────── */
+
+  /* Duration */
+  --duration-instant:  80ms;
+  --duration-fast:     150ms;
+  --duration-normal:   250ms;
+  --duration-slow:     400ms;
+  --duration-slower:   600ms;
+
+  /* Easing */
+  --ease-default:  cubic-bezier(0.4, 0, 0.2, 1);   /* material standard */
+  --ease-in:       cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:      cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoot nhẹ */
+
+  /* Shorthand hay dùng nhất */
+  --transition-fast:   var(--duration-fast)   var(--ease-default);
+  --transition-normal: var(--duration-normal) var(--ease-default);
+  --transition-slow:   var(--duration-slow)   var(--ease-out);
+
+
+  /* ─────────────────────────────────────────
+   * 8. LAYOUT
+   * ───────────────────────────────────────── */
+
+  /* Chiều cao header cố định */
+  --header-height:         64px;
+  --header-height-mobile:  56px;
+
+  /* Độ rộng tối đa nội dung */
+  --container-max-width:   1400px;
+  --container-padding:     var(--space-6);
+  --container-padding-sm:  var(--space-4);
+
+  /* Breakpoints (dùng trong @media, không dùng trực tiếp qua var()) */
+  /* --bp-sm: 480px  */
+  /* --bp-md: 768px  */
+  /* --bp-lg: 1024px */
+  /* --bp-xl: 1280px */
+
+  /* Video grid */
+  --video-card-min-width:  280px;
+  --video-card-gap:        var(--space-4);
+  --video-aspect-ratio:    16 / 9;
+
+
+  /* ─────────────────────────────────────────
+   * 9. Z-INDEX — thang lớp chồng nhau
+   * ───────────────────────────────────────── */
+
+  --z-base:      0;
+  --z-raised:    10;
+  --z-dropdown:  100;
+  --z-sticky:    200;    /* header sticky */
+  --z-overlay:   300;    /* backdrop */
+  --z-modal:     400;
+  --z-toast:     500;    /* thông báo nổi */
+
+
+  /* ─────────────────────────────────────────
+   * 10. COMPONENT TOKENS
+   *     Token riêng cho từng component lớn.
+   *     Gom ở đây để dễ tìm và override theo theme.
+   * ───────────────────────────────────────── */
+
+  /* --- Search Bar --- */
+  --search-bg:              var(--color-gray-800);
+  --search-bg-focus:        var(--color-gray-700);
+  --search-border:          var(--border-default);
+  --search-border-focus:    var(--accent-primary);
+  --search-text:            var(--text-primary);
+  --search-placeholder:     var(--text-muted);
+  --search-height:          42px;
+  --search-radius:          var(--radius-full);
+
+  /* --- Player Controls (nút prev/pause/next/home) --- */
+  --control-btn-size:         40px;
+  --control-btn-bg:           var(--color-gray-800);
+  --control-btn-bg-hover:     var(--color-gray-700);
+  --control-btn-bg-active:    var(--accent-primary);
+  --control-btn-icon-color:   var(--icon-default);
+  --control-btn-icon-active:  var(--text-inverse);
+  --control-btn-radius:       var(--radius-full);
+
+  /* --- Video Card --- */
+  --card-bg:                var(--color-gray-900);
+  --card-bg-hover:          var(--color-gray-800);
+  --card-border:            var(--border-subtle);
+  --card-border-active:     var(--accent-primary);
+  --card-radius:            var(--radius-lg);
+  --card-shadow:            var(--shadow-md);
+  --card-shadow-hover:      var(--shadow-lg);
+  --card-shadow-active:     var(--shadow-glow-brand);
+
+  /* --- Playlist Panel --- */
+  --playlist-header-bg:     var(--color-gray-800);
+  --playlist-item-bg-hover: var(--color-gray-800);
+  --playlist-item-bg-active:var(--color-gray-700);
+  --playlist-accent-line:   var(--accent-primary);
+
+}
