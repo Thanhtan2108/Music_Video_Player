@@ -82,6 +82,31 @@
 
 
 /* ─────────────────────────────────────────────
+ * 3. VIDEO CARD — trạng thái highlight (tìm kiếm 1 kết quả)
+ *    search.js thêm class này khi tìm thấy đúng 1 video,
+ *    tự động xóa sau 2 giây.
+ * ───────────────────────────────────────────── */
+
+.video-card--highlight {
+  border-color: var(--accent-secondary);           /* cyan — khác với vàng của active */
+  box-shadow: var(--shadow-glow-accent);
+  transform: translateY(-4px);
+  background-color: var(--card-bg-hover);
+
+  animation: card-highlight-pulse 2s var(--ease-default) forwards;
+}
+
+/* Nhấp nháy 2 lần rồi tắt dần trong 2 giây */
+@keyframes card-highlight-pulse {
+  0%   { box-shadow: var(--shadow-glow-accent);                    }
+  25%  { box-shadow: 0 0 32px rgba(0, 212, 255, 0.7);              }
+  50%  { box-shadow: var(--shadow-glow-accent);                    }
+  75%  { box-shadow: 0 0 32px rgba(0, 212, 255, 0.7);              }
+  100% { box-shadow: var(--card-shadow); transform: translateY(0); }
+}
+
+
+/* ─────────────────────────────────────────────
  * 3. IFRAME WRAPPER — giữ tỉ lệ 16:9
  *    Kỹ thuật padding-top để tạo tỉ lệ cố định
  *    bất kể độ rộng của card là bao nhiêu.
