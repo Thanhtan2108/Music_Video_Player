@@ -1,0 +1,199 @@
+/**
+ * player-controls.css
+ * --------------------
+ * Style cho thanh điều khiển phát nhạc gồm 4 nút:
+ *   - Về đầu danh sách  (#btn-go-to-start)
+ *   - Video trước       (#btn-previous)
+ *   - Pause / Play      (#btn-pause-play)  ← nút chính, to hơn
+ *   - Video tiếp theo   (#btn-next)
+ *
+ * Trạng thái pause/play được điều khiển qua attribute:
+ *   data-state="playing"  → hiện icon Pause
+ *   data-state="paused"   → hiện icon Play
+ *
+ * JS chỉ cần toggle data-state, CSS tự lo việc ẩn/hiện icon.
+ */
+
+
+/* ─────────────────────────────────────────────
+ * 1. PLAYER CONTROLS — container
+ * ───────────────────────────────────────────── */
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  /* Không cho controls bị thu nhỏ trong header grid */
+  flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 2. CONTROL BUTTON — nút cơ bản (prev, next, home)
+ * ───────────────────────────────────────────── */
+
+.control-btn {
+  position: relative;
+
+  width: var(--control-btn-size);
+  height: var(--control-btn-size);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--control-btn-bg);
+  border-radius: var(--control-btn-radius);
+  color: var(--control-btn-icon-color);
+
+  /* Ngăn chọn text khi double-click nhanh */
+  user-select: none;
+  -webkit-user-select: none;
+
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.control-btn:hover {
+  background-color: var(--control-btn-bg-hover);
+  color: var(--text-primary);
+}
+
+.control-btn:active {
+  transform: scale(0.88);
+}
+
+/* Icon bên trong nút */
+.control-btn .icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+
+  /* Ngăn icon bị click event riêng làm rối event của button */
+  pointer-events: none;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 3. CONTROL BUTTON PRIMARY — nút Pause/Play
+ *    To hơn, nổi bật hơn các nút còn lại
+ * ───────────────────────────────────────────── */
+
+.control-btn--primary {
+  width: calc(var(--control-btn-size) + 8px);
+  height: calc(var(--control-btn-size) + 8px);
+
+  background-color: var(--accent-primary);
+  color: var(--text-inverse);
+
+  box-shadow: var(--shadow-glow-brand);
+}
+
+.control-btn--primary:hover {
+  background-color: var(--color-brand-300);
+  color: var(--text-inverse);
+  box-shadow: 0 0 28px rgba(255, 170, 0, 0.55);
+}
+
+.control-btn--primary:active {
+  transform: scale(0.90);
+  box-shadow: var(--shadow-glow-brand);
+}
+
+.control-btn--primary .icon {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 4. ICON PAUSE / PLAY — ẩn hiện theo data-state
+ *
+ *   data-state="playing" → đang phát  → hiện Pause, ẩn Play
+ *   data-state="paused"  → đang dừng  → hiện Play, ẩn Pause
+ * ───────────────────────────────────────────── */
+
+/* Mặc định ẩn cả hai icon */
+.control-btn .icon--pause,
+.control-btn .icon--play {
+  display: none;
+}
+
+/* Đang phát → hiện Pause */
+.control-btn[data-state="playing"] .icon--pause {
+  display: block;
+}
+
+/* Đang dừng → hiện Play */
+.control-btn[data-state="paused"] .icon--play {
+  display: block;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 5. DISABLED STATE — khi chưa có video nào được chọn
+ * ───────────────────────────────────────────── */
+
+.control-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.control-btn--primary:disabled {
+  background-color: var(--color-gray-700);
+  box-shadow: none;
+  color: var(--text-muted);
+}
+
+
+/* ─────────────────────────────────────────────
+ * 6. TOOLTIP — hiện tên nút khi hover (dùng CSS thuần)
+ *    Nội dung lấy từ attribute `title` của button.
+ *    Dùng pseudo-element thay vì JS để giữ đơn giản.
+ * ───────────────────────────────────────────── */
+
+.control-btn::after {
+  content: attr(title);
+
+  position: absolute;
+  bottom: calc(100% + var(--space-2));
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: var(--space-1) var(--space-3);
+
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  color: var(--text-primary);
+
+  background-color: var(--bg-surface-raised);
+  border: var(--border-width-default) solid var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+
+  /* Ẩn mặc định */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity var(--transition-fast),
+    visibility var(--transition-fast);
+}
+
+.control-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Nút primary: tooltip xuất hiện trễ hơn một chút */
+.control-btn--primary::after {
+  transition-delay: 100ms;
+}
