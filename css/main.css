@@ -1,0 +1,44 @@
+/**
+ * main.css
+ * --------
+ * Entry point CSS duy nhất được link trong index.html.
+ * File này KHÔNG chứa CSS trực tiếp — chỉ có @import để gom
+ * tất cả các file CSS lại theo đúng thứ tự ưu tiên.
+ *
+ * Thứ tự import RẤT QUAN TRỌNG:
+ *   1. variables  → phải đứng đầu tiên vì mọi file sau đều dùng var()
+ *   2. reset      → chuẩn hóa trình duyệt trước khi viết bất kỳ style nào
+ *   3. layout     → bố cục khung tổng thể
+ *   4. components → từng component cụ thể (không phụ thuộc thứ tự nhau)
+ *
+ * Khi thêm component mới: chỉ thêm 1 dòng @import ở đây.
+ * Không cần chạm vào index.html.
+ */
+
+
+/* ─────────────────────────────────────────────
+ * 1. NỀN TẢNG — phải load trước tất cả
+ * ───────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap');
+
+@import './base/variables.css';
+@import './base/reset.css';
+
+
+/* ─────────────────────────────────────────────
+ * 2. LAYOUT — khung tổng thể trang
+ * ───────────────────────────────────────────── */
+
+@import './layout/main-layout.css';
+
+
+/* ─────────────────────────────────────────────
+ * 3. COMPONENTS — từng khối giao diện
+ * ───────────────────────────────────────────── */
+
+@import './components/header.css';
+@import './components/player-controls.css';
+@import './components/playlist-panel.css';
+@import './components/video-grid.css';
+@import './components/video-card.css';
