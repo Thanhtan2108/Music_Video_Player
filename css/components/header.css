@@ -1,0 +1,242 @@
+/**
+ * header.css
+ * ----------
+ * Style chi tiết cho toàn bộ vùng header.
+ * Bố cục (position sticky, grid columns) đã được xử lý trong main-layout.css.
+ * File này chỉ lo: màu sắc, font, hiệu ứng, style từng phần tử trong header.
+ *
+ * Các thành phần:
+ *   1. site-header     — nền, viền, backdrop blur
+ *   2. header__logo    — icon + tên trang
+ *   3. search-bar      — ô tìm kiếm + nút submit
+ */
+
+
+/* ─────────────────────────────────────────────
+ * 1. SITE HEADER — nền và hiệu ứng
+ * ───────────────────────────────────────────── */
+
+.site-header {
+  background-color: var(--bg-header);
+  border-bottom: var(--border-width-default) solid var(--border-header);
+
+  /* Hiệu ứng kính mờ khi scroll qua nội dung phía sau */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* Đổ bóng xuống phía dưới để tách biệt với nội dung */
+  box-shadow: var(--shadow-md);
+}
+
+
+/* ─────────────────────────────────────────────
+ * 2. LOGO
+ * ───────────────────────────────────────────── */
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  /* Không cho logo bị thu nhỏ khi search bar giãn ra */
+  flex-shrink: 0;
+
+  text-decoration: none;
+  cursor: default;
+  user-select: none;
+}
+
+.header__logo-icon {
+  font-size: var(--text-xl);
+  color: var(--accent-primary);
+  line-height: 1;
+
+  /* Hiệu ứng nhún nhẹ khi hover */
+  display: inline-block;
+  transition: transform var(--transition-normal);
+}
+
+.header__logo:hover .header__logo-icon {
+  transform: scale(1.15) rotate(-10deg);
+}
+
+.header__logo-text {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+
+  /* Gradient text — chữ vàng ánh sang */
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-300) 0%,
+    var(--color-brand-400) 50%,
+    var(--color-brand-200) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 3. SEARCH BAR WRAPPER
+ * ───────────────────────────────────────────── */
+
+.header__search-wrapper {
+  /* Giới hạn độ rộng tối đa của search bar */
+  max-width: 480px;
+  width: 100%;
+
+  /* Căn giữa trong cột grid của nó */
+  justify-self: center;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 4. SEARCH BAR — form tìm kiếm
+ * ───────────────────────────────────────────── */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+
+  height: var(--search-height);
+  background-color: var(--search-bg);
+  border: var(--border-width-default) solid var(--search-border);
+  border-radius: var(--search-radius);
+
+  /* Transition cho trạng thái focus */
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+/* Khi bất kỳ phần tử nào bên trong được focus */
+.search-bar:focus-within {
+  border-color: var(--search-border-focus);
+  background-color: var(--search-bg-focus);
+  box-shadow: 0 0 0 3px rgba(255, 170, 0, 0.15);
+}
+
+
+/* ─────────────────────────────────────────────
+ * 5. SEARCH INPUT
+ * ───────────────────────────────────────────── */
+
+.search-bar__input {
+  flex: 1;                 /* chiếm hết phần còn lại sau nút */
+  min-width: 0;            /* ngăn overflow trong flex container */
+
+  height: 100%;
+  padding: 0 var(--space-4);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--search-text);
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  /* Reset nút X mặc định của input[type=search] trên Chrome */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search-bar__input::placeholder {
+  color: var(--search-placeholder);
+  font-weight: var(--weight-regular);
+}
+
+/* Xóa nút X mặc định của Chrome trên search input */
+.search-bar__input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 6. SEARCH BUTTON — nút kính lúp
+ * ───────────────────────────────────────────── */
+
+.search-bar__btn {
+  flex-shrink: 0;
+
+  width: var(--search-height);
+  height: var(--search-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--icon-muted);
+  border-radius: 0 var(--search-radius) var(--search-radius) 0;
+
+  transition: color var(--transition-fast);
+}
+
+.search-bar__btn:hover {
+  color: var(--accent-primary);
+}
+
+.search-bar__btn:active {
+  transform: scale(0.92);
+}
+
+.search-bar__btn .icon {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 7. SEARCH RESULTS SECTION — phần hiển thị kết quả
+ * ───────────────────────────────────────────── */
+
+.search-results__title {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+}
+
+.search-results__title span {
+  color: var(--accent-primary);
+  font-style: italic;
+}
+
+.search-results__close-btn {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-muted);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: var(--border-width-default) solid var(--border-default);
+
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.search-results__close-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background-color: var(--bg-surface-overlay);
+}
+
+
+/* ─────────────────────────────────────────────
+ * 8. ICON — kích thước mặc định dùng chung trong header
+ * ───────────────────────────────────────────── */
+
+.site-header .icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
