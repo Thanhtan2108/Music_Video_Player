@@ -213,3 +213,143 @@
     --video-card-min-width: 300px;
   }
 }
+
+
+/* ─────────────────────────────────────────────
+ * PLAYER BAR — vùng phát video cố định
+ * Sticky ngay dưới header, luôn nhìn thấy khi scroll
+ * ───────────────────────────────────────────── */
+
+.player-bar {
+  position: sticky;
+  top: var(--header-height);
+  z-index: var(--z-sticky);
+
+  background-color: var(--color-gray-950);
+  border-bottom: var(--border-width-default) solid var(--border-default);
+  padding: var(--space-3) var(--container-padding);
+
+  box-shadow: var(--shadow-lg);
+}
+
+.player-bar__inner {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+/* Wrapper giữ tỉ lệ 16:9 */
+.player-bar__video-wrapper {
+  flex-shrink: 0;
+  width: 320px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-black);
+  position: relative;
+}
+
+/* iframe do YouTube API tự tạo bên trong div */
+.player-bar__video-wrapper iframe,
+#main-youtube-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}
+
+/* div container cũng cần full size */
+#main-youtube-player {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Thông tin bài đang phát */
+.player-bar__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  flex: 1;
+}
+
+.player-bar__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-bar__artist {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive player bar */
+@media (max-width: 768px) {
+  .player-bar {
+    top: var(--header-height-mobile);
+  }
+
+  .player-bar__video-wrapper {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .player-bar__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .player-bar__video-wrapper {
+    width: 100%;
+  }
+}
+
+.player-bar__title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-bar__artist {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive player bar */
+@media (max-width: 768px) {
+  .player-bar__video-wrapper {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .player-bar__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .player-bar__video-wrapper {
+    width: 100%;
+  }
+}

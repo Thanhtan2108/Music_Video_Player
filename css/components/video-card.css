@@ -375,3 +375,28 @@
     height: 18px;
   }
 }
+
+
+/* ─────────────────────────────────────────────
+ * THUMBNAIL — ảnh tĩnh thay thế iframe trong card
+ * ───────────────────────────────────────────── */
+
+.video-card__thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Với @supports aspect-ratio */
+@supports (aspect-ratio: 16 / 9) {
+  .video-card__thumbnail {
+    position: static;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

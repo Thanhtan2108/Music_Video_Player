@@ -5,33 +5,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Trang nghe nhạc video trực tuyến — phát liên tục từ YouTube" />
-
   <title>MusicPlay — Nghe Nhạc Video</title>
-
-  <!-- Favicon SVG — hỗ trợ tốt trên Chrome, Firefox, Edge hiện đại -->
   <link rel="icon" type="image/svg+xml" href="./assets/images/logo.svg" />
-  <!-- Fallback PNG cho Safari và trình duyệt cũ -->
   <link rel="icon" type="image/png" href="./assets/images/logo.png" />
-
-  <!-- CSS entry point duy nhất -->
   <link rel="stylesheet" href="./css/main.css" />
 </head>
 
 <body>
 
   <!-- =============================================
-   * HEADER — thanh điều hướng cố định trên đầu trang
-   * Chứa: logo, search bar, player controls
+   * HEADER — sticky, chứa logo + search + controls
    * ============================================= -->
   <header class="site-header" id="site-header">
 
-    <!-- Logo / Tên trang -->
+    <!-- Logo -->
     <div class="header__logo">
       <span class="header__logo-icon">♪</span>
       <span class="header__logo-text">MusicPlay</span>
     </div>
 
-    <!-- Thanh tìm kiếm -->
+    <!-- Search -->
     <div class="header__search-wrapper">
       <form class="search-bar" id="search-form" role="search">
         <input
@@ -42,13 +35,7 @@
           autocomplete="off"
           aria-label="Tìm kiếm bài hát"
         />
-        <button
-          class="search-bar__btn"
-          id="search-btn"
-          type="submit"
-          aria-label="Tìm kiếm"
-        >
-          <!-- Icon kính lúp -->
+        <button class="search-bar__btn" id="search-btn" type="submit" aria-label="Tìm kiếm">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -57,138 +44,92 @@
       </form>
     </div>
 
-    <!-- Player Controls — prev / pause-play / next / về đầu -->
+    <!-- Player Controls -->
     <nav class="player-controls" id="player-controls" aria-label="Điều khiển phát nhạc">
-
-      <!-- Nút về đầu danh sách -->
-      <button
-        class="control-btn"
-        id="btn-go-to-start"
-        type="button"
-        title="Về đầu danh sách"
-        aria-label="Về đầu danh sách"
-      >
+      <button class="control-btn" id="btn-go-to-start" type="button" title="Về đầu danh sách" aria-label="Về đầu danh sách">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <polygon points="19 20 9 12 19 4 19 20" />
           <line x1="5" y1="19" x2="5" y2="5" />
         </svg>
       </button>
 
-      <!-- Nút video trước -->
-      <button
-        class="control-btn"
-        id="btn-previous"
-        type="button"
-        title="Video trước"
-        aria-label="Phát video trước"
-      >
+      <button class="control-btn" id="btn-previous" type="button" title="Video trước" aria-label="Phát video trước">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <polygon points="19 20 9 12 19 4 19 20" />
-          <polygon points="5 19 5 5 5 5" />
           <line x1="5" y1="19" x2="5" y2="5" />
         </svg>
       </button>
 
-      <!-- Nút pause / play (toggle) -->
-      <button
-        class="control-btn control-btn--primary"
-        id="btn-pause-play"
-        type="button"
-        title="Tạm dừng / Phát"
-        aria-label="Tạm dừng hoặc phát video"
-        data-state="playing"
-      >
-        <!-- Icon Pause (hiện khi đang phát) -->
+      <button class="control-btn control-btn--primary" id="btn-pause-play" type="button"
+        title="Tạm dừng / Phát" aria-label="Tạm dừng hoặc phát video" data-state="playing">
         <svg class="icon icon--pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <rect x="6" y="4" width="4" height="16" />
           <rect x="14" y="4" width="4" height="16" />
         </svg>
-        <!-- Icon Play (hiện khi đang dừng) -->
         <svg class="icon icon--play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <polygon points="5 3 19 12 5 21 5 3" />
         </svg>
       </button>
 
-      <!-- Nút video tiếp theo -->
-      <button
-        class="control-btn"
-        id="btn-next"
-        type="button"
-        title="Video tiếp theo"
-        aria-label="Phát video tiếp theo"
-      >
+      <button class="control-btn" id="btn-next" type="button" title="Video tiếp theo" aria-label="Phát video tiếp theo">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <polygon points="5 4 15 12 5 20 5 4" />
           <line x1="19" y1="5" x2="19" y2="19" />
         </svg>
       </button>
-
     </nav>
 
   </header>
 
 
   <!-- =============================================
-   * MAIN — vùng nội dung chính
+   * PLAYER BAR — vùng phát video cố định, luôn hiển thị
+   * Ẩn mặc định, hiện khi có video được chọn
+   * ============================================= -->
+  <div class="player-bar" id="player-bar" hidden>
+    <div class="player-bar__inner">
+
+      <!-- YouTube API tự tạo iframe bên trong div này -->
+      <div class="player-bar__video-wrapper">
+        <div id="main-youtube-player"></div>
+      </div>
+
+      <!-- Thông tin bài đang phát -->
+      <div class="player-bar__info">
+        <p class="player-bar__title"  id="player-bar-title">—</p>
+        <p class="player-bar__artist" id="player-bar-artist">—</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =============================================
+   * MAIN — danh sách playlist và video
    * ============================================= -->
   <main class="site-main" id="site-main">
 
-    <!-- Kết quả tìm kiếm — ẩn mặc định, hiện khi có kết quả -->
-    <section
-      class="search-results"
-      id="search-results"
-      aria-live="polite"
-      aria-label="Kết quả tìm kiếm"
-      hidden
-    >
+    <!-- Kết quả tìm kiếm — ẩn mặc định -->
+    <section class="search-results" id="search-results" aria-live="polite" aria-label="Kết quả tìm kiếm" hidden>
       <div class="search-results__header">
         <h2 class="search-results__title">
           Kết quả tìm kiếm: <span id="search-results-keyword"></span>
         </h2>
-        <button
-          class="search-results__close-btn"
-          id="btn-close-search"
-          type="button"
-          aria-label="Đóng kết quả tìm kiếm"
-        >
+        <button class="search-results__close-btn" id="btn-close-search" type="button" aria-label="Đóng kết quả tìm kiếm">
           Đóng ✕
         </button>
       </div>
-
-      <!-- Danh sách video kết quả — render bằng JS -->
       <div class="video-grid" id="search-results-grid"></div>
     </section>
 
-
-    <!-- Danh sách các Playlist -->
-    <div class="playlist-list" id="playlist-list">
-
-      <!--
-        Mỗi playlist section được render bởi JS dựa trên dữ liệu từ videos.js.
-        Cấu trúc mẫu của 1 playlist (JS sẽ tạo ra):
-
-        <section class="playlist-section" id="playlist-nhac-tre-remix" data-playlist-id="nhac-tre-remix">
-          <div class="playlist-section__header">
-            <div class="playlist-section__color-bar" style="background: #ae5227"></div>
-            <div class="playlist-section__info">
-              <h2 class="playlist-section__name">Nhạc Trẻ Remix</h2>
-              <p class="playlist-section__description">Nhạc Trẻ Remix sôi động, giải trí</p>
-              <span class="playlist-section__count">33 bài</span>
-            </div>
-          </div>
-          <div class="video-grid" data-playlist-id="nhac-tre-remix">
-            ... các video-card ...
-          </div>
-        </section>
-      -->
-
-    </div>
+    <!-- Danh sách playlist — JS render vào đây -->
+    <div class="playlist-list" id="playlist-list"></div>
 
   </main>
 
 
   <!-- =============================================
-   * FOOTER — thông tin cuối trang
+   * FOOTER
    * ============================================= -->
   <footer class="site-footer" id="site-footer">
     <p class="site-footer__text">
@@ -196,11 +137,6 @@
     </p>
   </footer>
 
-
-  <!-- =============================================
-   * JAVASCRIPT
-   * type="module" để dùng ES6 import/export trong các file JS
-   * ============================================= -->
   <script type="module" src="./js/main.js"></script>
 
 </body>
