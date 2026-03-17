@@ -1,0 +1,215 @@
+/**
+ * main-layout.css
+ * ---------------
+ * Bố cục tổng thể của trang — chỉ quan tâm đến VÙNG và VỊ TRÍ.
+ * Không định nghĩa màu sắc, font hay style chi tiết của từng component.
+ * Đó là nhiệm vụ của các file trong css/components/.
+ *
+ * Cấu trúc trang:
+ *
+ *   ┌─────────────────────────────────────┐
+ *   │  HEADER (sticky, full-width)        │
+ *   ├─────────────────────────────────────┤
+ *   │                                     │
+ *   │  MAIN                               │
+ *   │    ├── search-results (ẩn/hiện)     │
+ *   │    └── playlist-list                │
+ *   │          ├── playlist-section       │
+ *   │          ├── playlist-section       │
+ *   │          └── ...                   │
+ *   │                                     │
+ *   ├─────────────────────────────────────┤
+ *   │  FOOTER                             │
+ *   └─────────────────────────────────────┘
+ */
+
+
+/* ─────────────────────────────────────────────
+ * 1. HEADER — sticky, full-width, luôn ở trên cùng
+ * ───────────────────────────────────────────── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky);
+
+  height: var(--header-height);
+
+  /* Layout nội dung header: logo | search | controls */
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-4);
+
+  padding: 0 var(--container-padding);
+
+  /* Ngăn nội dung header tràn quá rộng trên màn hình lớn */
+  max-width: 100%;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 2. MAIN — vùng nội dung chính
+ * ───────────────────────────────────────────── */
+
+.site-main {
+  /* Đẩy nội dung xuống đủ để không bị header che */
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-16);
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+
+  /* Giới hạn độ rộng nội dung, căn giữa trang */
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+
+  /* Đảm bảo main chiếm hết chiều cao còn lại */
+  min-height: calc(100vh - var(--header-height));
+}
+
+
+/* ─────────────────────────────────────────────
+ * 3. SEARCH RESULTS — vùng hiển thị kết quả tìm kiếm
+ *    Ẩn mặc định, JS sẽ toggle attr `hidden`
+ * ───────────────────────────────────────────── */
+
+.search-results {
+  margin-bottom: var(--space-12);
+}
+
+.search-results__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+
+/* ─────────────────────────────────────────────
+ * 4. PLAYLIST LIST — danh sách các playlist
+ * ───────────────────────────────────────────── */
+
+.playlist-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);   /* khoảng cách lớn giữa các playlist */
+}
+
+
+/* ─────────────────────────────────────────────
+ * 5. PLAYLIST SECTION — từng playlist
+ * ───────────────────────────────────────────── */
+
+.playlist-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.playlist-section__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.playlist-section__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+
+/* ─────────────────────────────────────────────
+ * 6. VIDEO GRID — lưới hiển thị video
+ *    Responsive tự động: tự điều chỉnh số cột theo màn hình.
+ *    Không cần media query — dùng auto-fill + minmax.
+ * ───────────────────────────────────────────── */
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--video-card-min-width), 1fr)
+  );
+  gap: var(--video-card-gap);
+}
+
+
+/* ─────────────────────────────────────────────
+ * 7. FOOTER
+ * ───────────────────────────────────────────── */
+
+.site-footer {
+  padding: var(--space-6) var(--container-padding);
+  text-align: center;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 8. RESPONSIVE — điều chỉnh layout theo kích thước màn hình
+ * ───────────────────────────────────────────── */
+
+/* Tablet: <= 768px */
+@media (max-width: 768px) {
+  .site-header {
+    height: var(--header-height-mobile);
+    padding: 0 var(--container-padding-sm);
+
+    /* Mobile: logo ẩn, search full width, controls bên phải */
+    grid-template-columns: 1fr auto;
+  }
+
+  /* Ẩn logo text trên mobile, giữ icon */
+  .header__logo-text {
+    display: none;
+  }
+
+  .site-main {
+    padding-top: var(--space-6);
+    padding-left: var(--container-padding-sm);
+    padding-right: var(--container-padding-sm);
+    min-height: calc(100vh - var(--header-height-mobile));
+  }
+
+  .playlist-list {
+    gap: var(--space-12);
+  }
+}
+
+/* Mobile nhỏ: <= 480px */
+@media (max-width: 480px) {
+  .site-header {
+    /* Trên màn hình rất nhỏ: search + controls xếp dọc */
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    padding: var(--space-3) var(--container-padding-sm);
+    gap: var(--space-2);
+  }
+
+  /* Search chiếm full width */
+  .header__search-wrapper {
+    grid-column: 1 / -1;
+  }
+
+  /* Controls căn giữa */
+  .player-controls {
+    justify-content: center;
+  }
+
+  .site-main {
+    padding-top: var(--space-4);
+  }
+}
+
+/* Màn hình lớn: >= 1400px */
+@media (min-width: 1400px) {
+  :root {
+    /* Tăng số cột tối đa trên màn hình rất rộng */
+    --video-card-min-width: 300px;
+  }
+}
