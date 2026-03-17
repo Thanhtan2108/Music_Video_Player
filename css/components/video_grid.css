@@ -1,0 +1,208 @@
+/**
+ * video-grid.css
+ * --------------
+ * Style bổ sung cho lưới video.
+ * Bố cục grid (grid-template-columns, gap) đã được định nghĩa
+ * trong main-layout.css — file này chỉ lo các trạng thái đặc biệt:
+ *   - Trạng thái rỗng (empty state)
+ *   - Trạng thái đang tải (loading state)
+ *   - Trạng thái lỗi (error state)
+ *   - Animation xuất hiện cho các card
+ */
+
+
+/* ─────────────────────────────────────────────
+ * 1. VIDEO GRID — base
+ * ───────────────────────────────────────────── */
+
+.video-grid {
+  /* min-height ngăn grid bị xẹp lại khi chưa có card */
+  min-height: 120px;
+}
+
+
+/* ─────────────────────────────────────────────
+ * 2. CARD APPEAR ANIMATION
+ *    Các card xuất hiện lần lượt khi được render vào grid.
+ *    JS gán --card-index cho mỗi card để tạo hiệu ứng stagger.
+ *
+ *    Ví dụ JS gán: card.style.setProperty('--card-index', i)
+ * ───────────────────────────────────────────── */
+
+.video-grid .video-card {
+  animation: card-appear var(--duration-slow) var(--ease-out) both;
+  animation-delay: calc(var(--card-index, 0) * 60ms);
+}
+
+@keyframes card-appear {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+ * 3. EMPTY STATE — khi grid không có video nào
+ *    JS thêm class .video-grid--empty khi không có kết quả
+ * ───────────────────────────────────────────── */
+
+.video-grid--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 200px;
+  border: var(--border-width-default) dashed var(--border-default);
+  border-radius: var(--card-radius);
+}
+
+.video-grid__empty-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+  padding: var(--space-8);
+}
+
+.video-grid__empty-icon {
+  font-size: var(--text-3xl);
+  line-height: 1;
+  opacity: 0.3;
+}
+
+.video-grid__empty-title {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+}
+
+.video-grid__empty-subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  max-width: 280px;
+  line-height: var(--leading-relaxed);
+}
+
+
+/* ─────────────────────────────────────────────
+ * 4. LOADING STATE — skeleton placeholder
+ *    Hiện trong lúc JS đang render các card lần đầu
+ * ───────────────────────────────────────────── */
+
+.video-grid--loading {
+  /* Giữ nguyên grid layout khi loading */
+  display: grid;
+}
+
+/* Skeleton card — hình dạng giống video-card thật */
+.video-card-skeleton {
+  background-color: var(--card-bg);
+  border: var(--border-width-default) solid var(--card-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+}
+
+/* Phần thumbnail skeleton */
+.video-card-skeleton__thumb {
+  width: 100%;
+  aspect-ratio: var(--video-aspect-ratio);
+  background-color: var(--color-gray-800);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* Phần info skeleton */
+.video-card-skeleton__info {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.video-card-skeleton__line {
+  height: 12px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-gray-800);
+}
+
+/* Dòng title ngắn hơn dòng artist */
+.video-card-skeleton__line--title  { width: 85%; }
+.video-card-skeleton__line--artist { width: 55%; }
+
+/* Shimmer effect — ánh sáng chạy ngang */
+.video-card-skeleton__thumb::after,
+.video-card-skeleton__line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    transparent              0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent              100%
+  );
+
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+.video-card-skeleton__line {
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%);  }
+}
+
+
+/* ─────────────────────────────────────────────
+ * 5. ERROR STATE — khi không tải được dữ liệu
+ * ───────────────────────────────────────────── */
+
+.video-grid--error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 200px;
+  border: var(--border-width-default) dashed var(--color-error);
+  border-radius: var(--card-radius);
+  opacity: 0.7;
+}
+
+.video-grid__error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+  padding: var(--space-8);
+}
+
+.video-grid__error-icon {
+  font-size: var(--text-2xl);
+  line-height: 1;
+}
+
+.video-grid__error-title {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--color-error);
+}
+
+.video-grid__error-subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
