@@ -42,37 +42,37 @@
 
 /** @type {Playlist[]} */
 const PLAYLISTS = [
-  {
-    id: "nhac-tru-tinh",
-    name: "Nhạc Trữ Tình",
-    description: "Những bản nhạc trữ tình Việt Nam bất hủ",
-    coverColor: "#c0392b",
-    videos: [
-      {
-        id: "dQw4w9WgXcQ",       // ← thay bằng YouTube video ID thực tế
-        title: "Tên Bài Hát 01",
-        artist: "Ca sĩ A",
-        duration: 0,
-        tags: ["tru tinh", "bolero"],
-      },
-    ],
-  },
+  // {
+  //   id: "nhac-tru-tinh",
+  //   name: "Nhạc Trữ Tình",
+  //   description: "Những bản nhạc trữ tình Việt Nam bất hủ",
+  //   coverColor: "#c0392b",
+  //   videos: [
+  //     {
+  //       id: "dQw4w9WgXcQ",       // ← thay bằng YouTube video ID thực tế
+  //       title: "Tên Bài Hát 01",
+  //       artist: "Ca sĩ A",
+  //       duration: 0,
+  //       tags: ["tru tinh", "bolero"],
+  //     },
+  //   ],
+  // },
 
-  {
-    id: "nhac-tre",
-    name: "Nhạc Trẻ",
-    description: "V-Pop sôi động, năng lượng cao",
-    coverColor: "#2980b9",
-    videos: [
-      {
-        id: "kJQP7kiw5Fk",
-        title: "Tên Bài Hát 04",
-        artist: "Ca sĩ E",
-        duration: 0,
-        tags: ["vpop"],
-      },
-    ],
-  },
+  // {
+  //   id: "nhac-tre",
+  //   name: "Nhạc Trẻ",
+  //   description: "V-Pop sôi động, năng lượng cao",
+  //   coverColor: "#2980b9",
+  //   videos: [
+  //     {
+  //       id: "kJQP7kiw5Fk",
+  //       title: "Tên Bài Hát 04",
+  //       artist: "Ca sĩ E",
+  //       duration: 0,
+  //       tags: ["vpop"],
+  //     },
+  //   ],
+  // },
 
   {
     id: "nhac-tre-remix",
@@ -321,21 +321,21 @@ const PLAYLISTS = [
     ],
   },
   
-  {
-    id: "nhac-khong-loi",
-    name: "Nhạc Không Lời",
-    description: "Nhạc nền thư giãn, tập trung làm việc",
-    coverColor: "#27ae60",
-    videos: [
-      {
-        id: "hHW1oY26kxQ",
-        title: "Tên Bài Hát 05",
-        artist: "Nhạc sĩ F",
-        duration: 0,
-        tags: ["instrumental", "relaxing"],
-      },
-    ],
-  },
+  // {
+  //   id: "nhac-khong-loi",
+  //   name: "Nhạc Không Lời",
+  //   description: "Nhạc nền thư giãn, tập trung làm việc",
+  //   coverColor: "#27ae60",
+  //   videos: [
+  //     {
+  //       id: "hHW1oY26kxQ",
+  //       title: "Tên Bài Hát 05",
+  //       artist: "Nhạc sĩ F",
+  //       duration: 0,
+  //       tags: ["instrumental", "relaxing"],
+  //     },
+  //   ],
+  // },
 ];
 
 
