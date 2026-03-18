@@ -95,13 +95,6 @@ const PLAYLISTS = [
         tags: ["remix", "entertainment"],
       },
       {
-        id: "pnlZN82N1Cw",
-        title: "Xao Xuyến Remix",
-        artist: "Bình Minh Vũ x Mr,Siro",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      {
         id: "TS04y03CEsI",
         title: "Mở Lòng Vì Ai Remix",
         artist: "Inso",
@@ -158,16 +151,9 @@ const PLAYLISTS = [
         tags: ["remix", "entertainment"],
       },
       {
-        id: "PDK93wvv5UQ",
+        id: "03IGoCtHj9U",
         title: "Lý Do Là Gì Remix",
         artist: "Nguyễn Vĩ",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      {
-        id: "QlVtc1ImEDQ",
-        title: "Chuyến Xe Cuộc Đời Remix",
-        artist: "Thanh Hưng",
         duration: 0,
         tags: ["remix", "entertainment"],
       },
@@ -186,13 +172,6 @@ const PLAYLISTS = [
         tags: ["remix", "entertainment"],
       },
       {
-        id: "2r6I1b38uc0",
-        title: "10 Mất 1 Còn Không Remix",
-        artist: "Lê Gia Bảo",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      {
         id: "740fTMOBZdY",
         title: "Cause I Love You Remix",
         artist: "Noo Phước Thịnh",
@@ -200,9 +179,9 @@ const PLAYLISTS = [
         tags: ["remix", "entertainment"],
       },
       {
-        id: "YizrmzMvr7Q",
-        title: "Cánh Hoa Héo Tàn Remix",
-        artist: "MoChili",
+        id: "eY3d6wthJag",
+        title: "Gạt Đi Nước Mắt x Em Của Ngày Hôm Qua",
+        artist: "vsic",
         duration: 0,
         tags: ["remix", "entertainment"],
       },
@@ -220,17 +199,10 @@ const PLAYLISTS = [
         duration: 0,
         tags: ["remix", "entertainment"],
       },
-      { // thay
-        id: "1LJyxG8COE0",
-        title: "Như Một Người Dưng Remix",
-        artist: "Nguyễn Thạc Bảo Ngọc",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      { // thay
-        id: "YGeExm0vJBA",
-        title: "Hạt Mưa Vương Vấn Remix",
-        artist: "ACV",
+      {
+        id: "bJa1j2TJ7R4",
+        title: "Tấm Lòng Cửu Long Remix",
+        artist: "Ricky Star",
         duration: 0,
         tags: ["remix", "entertainment"],
       },
@@ -242,21 +214,7 @@ const PLAYLISTS = [
         tags: ["remix", "entertainment"],
       },
       {
-        id: "AhC2SbKd-bY",
-        title: "Ôm Sầu Remix",
-        artist: "NB3 Hoài Bảo",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      {
-        id: "N2L9aml1-BE",
-        title: "Vở Kịch Của Em Remix",
-        artist: "Hồ Phong An",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      { // thay
-        id: "z0YFxegDErs",
+        id: "rU7ncYmbJS0",
         title: "Hoa Tàn Tình Tan Remix",
         artist: "Giang Jolee",
         duration: 0,
@@ -276,7 +234,7 @@ const PLAYLISTS = [
         duration: 0,
         tags: ["remix", "entertainment"],
       },
-      { // thay
+      {
         id: "3sg2XLvUlAU",
         title: "Thương Thì Thôi Remix",
         artist: "JANK",
@@ -290,27 +248,6 @@ const PLAYLISTS = [
         duration: 0,
         tags: ["remix", "entertainment"],
       },
-      { // thay
-        id: "LyG4kyW9zK4",
-        title: "Em Thua Cô Ta",
-        artist: "ACV",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      {
-        id: "eWwhRiaWwwY",
-        title: "Pháp Ta Bà Remix",
-        artist: "Bảo Vân",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      {
-        id: "yrm9Gc7zs6U",
-        title: "Nơi Vực Nơi Trời Remix",
-        artist: "Lê Bảo Bình",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
       {
         id: "opu4T76MUps",
         title: "Anh Chẳng Thể Remix",
@@ -320,7 +257,7 @@ const PLAYLISTS = [
       },
     ],
   },
-  
+
   // {
   //   id: "nhac-khong-loi",
   //   name: "Nhạc Không Lời",
