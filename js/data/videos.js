@@ -151,20 +151,6 @@ const PLAYLISTS = [
         tags: ["remix", "entertainment"],
       },
       {
-        id: "03IGoCtHj9U",
-        title: "Lý Do Là Gì Remix",
-        artist: "Nguyễn Vĩ",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      {
-        id: "AuxULopbguY",
-        title: "Để Em Lương Thiện Remix",
-        artist: "Linh Hương Luz",
-        duration: 0,
-        tags: ["remix", "entertainment"],
-      },
-      {
         id: "0A6hCfFZVj4",
         title: "Mây x Gió Remix",
         artist: "JANK",
